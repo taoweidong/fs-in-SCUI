@@ -60,6 +60,7 @@ git clone https://gitee.com/lolicode/scui.git
 cd scui
 
 # 安装依赖
+环境：Node v16.19.1   Npm V8.19.3
 npm i
 
 # 启动项目(开发模式)

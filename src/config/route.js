@@ -26,25 +26,6 @@
 // 	}
 // ]
 
-const routes = [
-	{
-		name: "demo",
-		path: "/demo",
-		meta: {
-			icon: "el-icon-eleme-filled",
-			title: "FastCrud",
-			role: ["SA"]
-		},
-		children: [{
-			name: "FastCrudDemo",
-			path: "/fastcrud",
-			component: "crud/demo/index",
-			meta: {
-				icon: "el-icon-menu",
-				title: "FastCrud示例",
-			}
-		}]
-	}
-]
+const routes = []
 
 export default routes;
