@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 
 module.exports = defineConfig({
 	//设置为空打包后不分更目录还是多级目录
-	publicPath:'',
+	publicPath: '',
 	//build编译后存放静态文件的目录
 	//assetsDir: "static",
 
@@ -11,7 +11,7 @@ module.exports = defineConfig({
 
 	//开发服务,build后的生产模式还需nginx代理
 	devServer: {
-        allowedHosts: 'all',
+		allowedHosts: 'all',
 		open: false, //运行后自动打开浏览器
 		port: process.env.VUE_APP_PORT, //挂载端口
 		proxy: {

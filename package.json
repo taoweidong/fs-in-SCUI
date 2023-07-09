@@ -15,6 +15,9 @@
 		"core-js": "3.29.0",
 		"cropperjs": "1.5.13",
 		"crypto-js": "4.1.1",
+		"d2-crud-plus": "^2.17.9",
+		"d2-crud-x": "^2.17.9",
+		"d2p-extends": "^2.17.9",
 		"echarts": "5.4.1",
 		"element-plus": "2.2.32",
 		"nprogress": "0.2.0",
@@ -26,6 +29,8 @@
 		"vue-router": "4.1.6",
 		"vuedraggable": "4.0.3",
 		"vuex": "4.1.0",
+		"vxe-table": "^4.4.2",
+		"xe-utils": "^3.5.11",
 		"xgplayer": "2.32.2",
 		"xgplayer-hls": "2.5.2"
 	},

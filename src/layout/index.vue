@@ -100,6 +100,7 @@
 					<img class="logo" src="img/logo.png">
 					<span>{{ $CONFIG.APP_NAME }}</span>
 				</div>
+				<el-divider direction="vertical" />
 				<div v-if="!ismobile" class="adminui-header-menu">
 					<el-menu mode="horizontal" :default-active="active" router background-color="#222b45" text-color="#fff" active-text-color="var(--el-color-primary)">
 						<NavMenu :navMenus="menu"></NavMenu>
