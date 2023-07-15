@@ -34,6 +34,7 @@
 
 <script>
 import menu_data from '@/config/menusConfig.json'
+import token_data from '@/data/token.json'
 
 export default {
 	data() {
@@ -76,12 +77,14 @@ export default {
 			if (!validate) { return false }
 
 			this.islogin = true
-			var data = {
-				username: this.form.user,
-				password: this.$TOOL.crypto.MD5(this.form.password)
-			}
+			// TODO 此处暂时封掉后台调用的接口
+			// var data = {
+			// 	username: this.form.user,
+			// 	password: this.$TOOL.crypto.MD5(this.form.password)
+			// }
 			//获取token
-			var user = await this.$API.auth.token.post(data)
+			// var user = await this.$API.auth.token.post(data)
+			var user = token_data
 			if (user.code == 200) {
 				this.$TOOL.cookie.set("TOKEN", user.data.token, {
 					expires: this.form.autologin ? 24 * 60 * 60 : 0

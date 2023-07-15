@@ -643,7 +643,7 @@
                 "path": "/test",
                 "meta": {
                     "title": "实验室",
-                    "icon": "el-icon-mouse",
+                    "icon": "el-icon-eleme",
                     "type": "menu"
                 },
                 "children": [
@@ -798,7 +798,7 @@
                 "path": "/tang",
                 "meta": {
                     "title": "我的菜单",
-                    "icon": "el-icon-setting",
+                    "icon": "el-icon-eleme",
                     "type": "menu"
                 },
                 "children": [
