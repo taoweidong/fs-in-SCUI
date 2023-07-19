@@ -48,92 +48,99 @@
 </template>
 
 <script>
-	import { verifyPhone, verifyCars } from '@/utils/verificate'
+import { verifyPhone, verifyCars } from '@/utils/verificate'
+import ver_data from '@/data/ver_info.json'
+export default {
+	name: 'verificate',
+	data() {
+		return {
+			form: {
 
-	export default {
-		name: 'verificate',
-		data() {
-			return {
-				form: {
-
-				},
-				rules: {
-					required: [
-						{ required: true, message: '请填写' }
-					],
-					length: [
-						{ required: true, len: 3, message: '长度需为3位' }
-					],
-					type: [
-						{ required: true, type: 'email', message: '类型需为email' }
-					],
-					range: [
-						{ required: true, min: 3, max: 5, message: '范围在3至5位' }
-					],
-					enum: [
-						{ required: true, type: 'enum', enum: ['admin', 'user', 'guest'], message: '请填写admin，user，guest其一' }
-					],
-					custom: [
-						{ required: true, validator: (rule, value)=>{return value === '1'}, message: '请填写数字1' , trigger:'blur'}
-					],
-					async: [
-						{
-							required: true,
-							validator: (rule, value, callback)=>{
-								this.$API.demo.ver.get({value: value}).then(res => {
-									if(res.data != value){
-										return callback(new Error('请输入SCUI最新版本号：'+res.data))
-									}
-									callback()
-								})
-							},
-							trigger:'blur'
-						}
-					]
-				},
-				form2: {
-
-				},
-				rules2: {
-					phone: [
-						{ required: true, message: '请输入姓名' },
-						{ validator: verifyPhone, trigger:'blur' }
-					],
-					cars: [
-						{ required: true, validator: verifyCars, trigger:'blur' }
-					]
-				}
-			}
-		},
-		mounted() {
-
-		},
-		methods: {
-			submit(){
-				this.$refs.form.validate(async (valid) => {
-					if (valid) {
-						this.$message.success("全部验证通过")
-					}else{
-						return false;
-					}
-				})
 			},
-			submit2(){
-				this.$refs.form2.validate(async (valid) => {
-					if (valid) {
-						this.$message.success("全部验证通过")
-					}else{
-						return false;
+			rules: {
+				required: [
+					{ required: true, message: '请填写' }
+				],
+				length: [
+					{ required: true, len: 3, message: '长度需为3位' }
+				],
+				type: [
+					{ required: true, type: 'email', message: '类型需为email' }
+				],
+				range: [
+					{ required: true, min: 3, max: 5, message: '范围在3至5位' }
+				],
+				enum: [
+					{ required: true, type: 'enum', enum: ['admin', 'user', 'guest'], message: '请填写admin，user，guest其一' }
+				],
+				custom: [
+					{ required: true, validator: (rule, value) => { return value === '1' }, message: '请填写数字1', trigger: 'blur' }
+				],
+				async: [
+					{
+						required: true,
+						validator: (rule, value, callback) => {
+
+							// const ver = await this.$API.demo.ver.get()
+							const ver = ver_data
+
+							// this.$API.demo.ver.get({ value: value }).then(res => {
+							// 	if (res.data != value) {
+							// 		return callback(new Error('请输入SCUI最新版本号：' + res.data))
+							// 	}
+							// 	callback()
+							// })
+							if (ver.data != value) {
+								return callback(new Error('请输入SCUI最新版本号：' + ver.data))
+							} else {
+								callback()
+							}
+						},
+						trigger: 'blur'
 					}
-				})
+				]
 			},
-			resetForm(ref){
-				this.$refs[ref].resetFields()
+			form2: {
+
+			},
+			rules2: {
+				phone: [
+					{ required: true, message: '请输入姓名' },
+					{ validator: verifyPhone, trigger: 'blur' }
+				],
+				cars: [
+					{ required: true, validator: verifyCars, trigger: 'blur' }
+				]
 			}
 		}
+	},
+	mounted() {
+
+	},
+	methods: {
+		submit() {
+			this.$refs.form.validate(async (valid) => {
+				if (valid) {
+					this.$message.success("全部验证通过")
+				} else {
+					return false;
+				}
+			})
+		},
+		submit2() {
+			this.$refs.form2.validate(async (valid) => {
+				if (valid) {
+					this.$message.success("全部验证通过")
+				} else {
+					return false;
+				}
+			})
+		},
+		resetForm(ref) {
+			this.$refs[ref].resetFields()
+		}
 	}
+}
 </script>
 
-<style>
-
-</style>
+<style></style>
