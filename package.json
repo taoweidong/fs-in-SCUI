@@ -36,7 +36,9 @@
 		"vxe-table": "^4.4.2",
 		"xe-utils": "^3.5.11",
 		"xgplayer": "2.32.2",
-		"xgplayer-hls": "2.5.2"
+		"xgplayer-hls": "2.5.2",
+		"monaco-editor": "^0.30.1",
+		"monaco-editor-webpack-plugin": "^6.0.0"
 	},
 	"devDependencies": {
 		"@babel/core": "7.21.00",
@@ -47,7 +49,8 @@
 		"eslint": "8.35.0",
 		"eslint-plugin-vue": "9.9.0",
 		"sass": "1.58.3",
-		"sass-loader": "10.1.1"
+		"sass-loader": "10.1.1",
+		"jquery": "^3.6.0"
 	},
 	"eslintConfig": {
 		"root": true,

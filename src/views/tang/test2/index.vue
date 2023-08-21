@@ -5,20 +5,19 @@
 				<h1>Hello World!</h1>
 			</div>
 		</el-header>
-		<el-aside>
-			kkkkkkkkkkkkk
-		</el-aside>
+
 
 		<el-main>
-			MMMMMMMMMMMMMMMM
+			<monacoEditor></monacoEditor>
 		</el-main>
 	</el-container>
 </template>
 <script>
+import monacoEditor from '@/components/monacoEditor.vue'
 export default {
 	name: '',
 	components: {
-
+		monacoEditor
 	},
 	mixins: [],
 	props: {
