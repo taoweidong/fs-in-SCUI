@@ -6,7 +6,9 @@
 					<el-input placeholder="输入关键字进行过滤" v-model="groupFilterText" clearable></el-input>
 				</el-header>
 				<el-main class="nopadding">
-					<el-tree ref="group" class="menu" node-key="id" :data="groupData" :current-node-key="''" :highlight-current="true" :expand-on-click-node="false" :filter-node-method="groupFilterNode" @node-click="groupClick"></el-tree>
+					<el-tree ref="group" class="menu" node-key="id" :data="groupData" :current-node-key="''"
+						:highlight-current="true" :expand-on-click-node="false" :filter-node-method="groupFilterNode"
+						@node-click="groupClick"></el-tree>
 				</el-main>
 			</el-container>
 		</el-aside>
@@ -47,82 +49,83 @@
 </template>
 
 <script>
-	export default {
-		name: 'listTree',
-		data() {
-			return {
-				groupFilterText: "",
-				groupData: [
-					{
-						id: "",
-						label: "所有"
-					},
-					{
-						id: "1",
-						label: "华东总部",
-						children: [
-							{
-								id: "11",
-								label: "售前客服部"
-							},
-							{
-								id: "12",
-								label: "技术研发部"
-							},
-							{
-								id: "13",
-								label: "行政人事部"
-							}
-						]
-					},
-					{
-						id: "2",
-						label: "华难总部",
-						children: [
-							{
-								id: "21",
-								label: "售前客服部"
-							},
-							{
-								id: "22",
-								label: "技术研发部"
-							}
-						]
-					}
-				],
-				list: {
-					apiObj: this.$API.demo.list
+import demo_list_data from '@/data/demo_list.json'
+export default {
+	name: 'listTree',
+	data() {
+		return {
+			groupFilterText: "",
+			groupData: [
+				{
+					id: "",
+					label: "所有"
 				},
-				search: {
-					keyword: ""
+				{
+					id: "1",
+					label: "华东总部",
+					children: [
+						{
+							id: "11",
+							label: "售前客服部"
+						},
+						{
+							id: "12",
+							label: "技术研发部"
+						},
+						{
+							id: "13",
+							label: "行政人事部"
+						}
+					]
+				},
+				{
+					id: "2",
+					label: "华难总部",
+					children: [
+						{
+							id: "21",
+							label: "售前客服部"
+						},
+						{
+							id: "22",
+							label: "技术研发部"
+						}
+					]
 				}
+			],
+			list: {
+				// apiObj: this.$API.demo.list
+				apiObj: demo_list_data
+			},
+			search: {
+				keyword: ""
 			}
-		},
-		watch: {
-			groupFilterText(val) {
-				this.$refs.group.filter(val);
-			}
-		},
-		methods: {
-			//树过滤
-			groupFilterNode(value, data){
-				if (!value) return true;
-				return data.label.indexOf(value) !== -1;
-			},
-			//树点击事件
-			groupClick(data){
-				var params = {
-					groupId: data.id
-				}
-				this.$refs.table.reload(params)
-			},
-			//搜索
-			upsearch(){
-				this.$refs.table.upData(this.search)
-			},
 		}
+	},
+	watch: {
+		groupFilterText(val) {
+			this.$refs.group.filter(val);
+		}
+	},
+	methods: {
+		//树过滤
+		groupFilterNode(value, data) {
+			if (!value) return true;
+			return data.label.indexOf(value) !== -1;
+		},
+		//树点击事件
+		groupClick(data) {
+			var params = {
+				groupId: data.id
+			}
+			this.$refs.table.reload(params)
+		},
+		//搜索
+		upsearch() {
+			this.$refs.table.upData(this.search)
+		},
 	}
+}
 </script>
 
-<style>
-</style>
+<style></style>

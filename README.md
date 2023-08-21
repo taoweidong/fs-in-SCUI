@@ -1,21 +1,8 @@
 
 <div align="center">
 
-![logo](https://lolicode.gitee.io/scui-doc/logo.png)
-
-<p align="center">
-	<a href="https://v3.vuejs.org/" target="_blank">
-		<img src="https://img.shields.io/badge/VueCLI-5-green" alt="VueCLI">
-	</a>
-	<a href="https://v3.vuejs.org/" target="_blank">
-		<img src="https://img.shields.io/badge/Vue.js-3.x-green" alt="Vue">
-	</a>
-	<a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
-		<img src="https://img.shields.io/badge/element--plus-latest-blue" alt="element plus">
-	</a>
-</p>
-
 <h1>SCUI Admin</h1>
+
 
 </div>
 
@@ -34,7 +21,9 @@ SCUI的宗旨是 让一切复杂的东西傻瓜化。
 | 文档地址 | https://lolicode.gitee.io/scui-doc/ |
 | 演示地址  | https://lolicode.gitee.io/scui-doc/demo/#/login |
 
-
+## 使用组件
+1. http://d2-crud-plus.docmirror.cn/d2-crud-plus/
+2. 
 
 ## 特点
 
@@ -60,6 +49,7 @@ git clone https://gitee.com/lolicode/scui.git
 cd scui
 
 # 安装依赖
+环境：Node v16.19.1   Npm V8.19.3
 npm i
 
 # 启动项目(开发模式)

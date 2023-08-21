@@ -7,14 +7,18 @@ import i18n from './locales'
 import router from './router'
 import store from './store'
 import App from './App.vue'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
 import FastCrud from './fast-crud/index.js';
-const app = createApp(App);
 
+const app = createApp(App);
+app.use(FastCrud)
+app.use(VXETable)
 app.use(store);
 app.use(router);
 app.use(ElementPlus);
 app.use(i18n);
 app.use(scui);
-app.use(FastCrud)
+
 //挂载app
 app.mount('#app');
