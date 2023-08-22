@@ -6,7 +6,6 @@
 			</div>
 		</el-header>
 
-
 		<el-main>
 			<monacoEditor></monacoEditor>
 		</el-main>

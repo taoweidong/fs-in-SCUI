@@ -4,7 +4,7 @@
 			<el-col :span="14">
 				<el-form :inline="true">
 					<el-form-item label="Language">
-						<el-select v-model="language" placeholder="选择语言" @change="handleLanguage">
+						<el-select disabled v-model="language" placeholder="选择语言" @change="handleLanguage">
 							<el-option v-for="(languageItem, key) in languageOptions" :key="key" :label="languageItem"
 								:value="languageItem">
 							</el-option>
@@ -19,22 +19,9 @@
 					</el-form-item>
 				</el-form>
 				<div id="codeEditBox"></div>
-				<el-button @click="handleCode">点击运行</el-button>
-				<el-button @click="handleCreateCode">点击自动生成代码</el-button>
-				<el-button @click="handleFormat" type="primary"
-					v-if="language == 'json' || language == 'sql'">格式化</el-button>
+				<el-button @click="handleCode">获取数据</el-button>
 			</el-col>
 
-			<el-col :span="10">
-				<el-card class="resultBox" shadow="never">
-					<template #header>
-						<div class="resultTitle">
-							<span>运行结果</span>
-						</div>
-					</template>
-					<div class="result">{{ result }}</div>
-				</el-card>
-			</el-col>
 		</el-row>
 	</div>
 </template>
@@ -54,7 +41,7 @@ export default {
 		const editor = ref(null)
 		const result = ref("展示运行结果～～～")
 		const editorTheme = ref("vs-dark")
-		const language = ref("java")
+		const language = ref("python")
 		const languageOptions = ref(["bat", "cpp", "csharp", "css", "dockerfile", "go", "graphql", "html", "ini",
 			"java", "javascript", "json", "julia", "kotlin", "less", "markdown", "mysql", "objective-c", "pascal", "pascaligo",
 			"perl", "php", "powershell", "python", "r", "redis", "rust", "scala", "scheme", "scss", "shell",
@@ -93,11 +80,8 @@ export default {
 			initEditor()
 		})
 		const handleCode = () => {
-			let formData = new FormData()
-			formData.append("python", toRaw(editor.value).getValue())
-			// api.code.getCode(formData).then((res) => {
-			// 	result.value = res
-			// })
+			let data = toRaw(editor.value).getValue()
+			console.log("数据信息:" + data)
 		}
 		const handleCreateCode = () => {
 			// api.code.createCode(toRaw(editor.value).getModel().getLanguageId()).then((res) => {

@@ -23,7 +23,7 @@ SCUI的宗旨是 让一切复杂的东西傻瓜化。
 
 ## 使用组件
 1. http://d2-crud-plus.docmirror.cn/d2-crud-plus/
-2. 
+2. https://gitee.com/chenxinyu_cxy/monaco-editor
 
 ## 特点
 

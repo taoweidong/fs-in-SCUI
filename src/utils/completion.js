@@ -6,156 +6,162 @@ import { language as csharpLanguage } from 'monaco-editor/esm/vs/basic-languages
 import { language as javaLanguage } from 'monaco-editor/esm/vs/basic-languages/java/java.js';
 
 const pythonCompletion = monaco.languages.registerCompletionItemProvider('python', {
-    provideCompletionItems: function () {
-        let suggestions = [];
-        pythonLanguage.keywords.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        return {
-            suggestions:suggestions
-        };
-    },
+	provideCompletionItems: function () {
+		let suggestions = [];
+		suggestions.push({
+			label: "twd",
+			kind: '17',
+			insertText: 'taoweidong______这个是自定义的代码提示内容',
+			detail: '这是一个提示'
+		});
+		pythonLanguage.keywords.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		return {
+			suggestions: suggestions
+		};
+	},
 });
 
 const sqlCompletion = monaco.languages.registerCompletionItemProvider('sql', {
-    provideCompletionItems: function () {
-        let suggestions = [];
-        sqlLanguage.keywords.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        sqlLanguage.operators.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Operator,
-                insertText: item
-            });
-        })
-        sqlLanguage.builtinFunctions.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Function,
-                insertText: item
-            });
-        })
-        sqlLanguage.builtinVariables.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Variable,
-                insertText: item
-            });
-        })
-        return {
-            suggestions:suggestions
-        };
-    },
+	provideCompletionItems: function () {
+		let suggestions = [];
+		sqlLanguage.keywords.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		sqlLanguage.operators.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Operator,
+				insertText: item
+			});
+		})
+		sqlLanguage.builtinFunctions.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Function,
+				insertText: item
+			});
+		})
+		sqlLanguage.builtinVariables.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Variable,
+				insertText: item
+			});
+		})
+		return {
+			suggestions: suggestions
+		};
+	},
 });
 
 const cppCompletion = monaco.languages.registerCompletionItemProvider('cpp', {
-    provideCompletionItems: function () {
-        let suggestions = [];
-        cppLanguage.keywords.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        cppLanguage.operators.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Operator,
-                insertText: item
-            });
-        })
-        return {
-            suggestions:suggestions
-        };
-    },
+	provideCompletionItems: function () {
+		let suggestions = [];
+		cppLanguage.keywords.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		cppLanguage.operators.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Operator,
+				insertText: item
+			});
+		})
+		return {
+			suggestions: suggestions
+		};
+	},
 });
 
 const csharpCompletion = monaco.languages.registerCompletionItemProvider('csharp', {
-    provideCompletionItems: function () {
-        let suggestions = [];
-        csharpLanguage.keywords.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        csharpLanguage.namespaceFollows.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        csharpLanguage.parenFollows.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        csharpLanguage.operators.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Operator,
-                insertText: item
-            });
-        })
-        return {
-            suggestions:suggestions
-        };
-    },
+	provideCompletionItems: function () {
+		let suggestions = [];
+		csharpLanguage.keywords.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		csharpLanguage.namespaceFollows.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		csharpLanguage.parenFollows.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		csharpLanguage.operators.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Operator,
+				insertText: item
+			});
+		})
+		return {
+			suggestions: suggestions
+		};
+	},
 });
 
 const javaCompletion = monaco.languages.registerCompletionItemProvider('java', {
-    provideCompletionItems: function () {
-        let suggestions = [];
-        javaLanguage.keywords.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: item
-            });
-        })
-        javaLanguage.operators.forEach(item => {
-            suggestions.push({
-                label: item,
-                kind: monaco.languages.CompletionItemKind.Operator,
-                insertText: item
-            });
-        })
-        suggestions.push({
-            label: "Class",
-            kind: monaco.languages.CompletionItemKind.Class,
-            insertText: "Class"
-        });
-        suggestions.push({
-            label: "Interface",
-            kind: monaco.languages.CompletionItemKind.Interface,
-            insertText: "Interface"
-        });
-        return {
-            suggestions:suggestions
-        };
-    },
+	provideCompletionItems: function () {
+		let suggestions = [];
+		javaLanguage.keywords.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Keyword,
+				insertText: item
+			});
+		})
+		javaLanguage.operators.forEach(item => {
+			suggestions.push({
+				label: item,
+				kind: monaco.languages.CompletionItemKind.Operator,
+				insertText: item
+			});
+		})
+		suggestions.push({
+			label: "Class",
+			kind: monaco.languages.CompletionItemKind.Class,
+			insertText: "Class"
+		});
+		suggestions.push({
+			label: "Interface",
+			kind: monaco.languages.CompletionItemKind.Interface,
+			insertText: "Interface"
+		});
+		return {
+			suggestions: suggestions
+		};
+	},
 });
 
 
 export {
-    pythonCompletion,
-    sqlCompletion,
-    cppCompletion,
-    csharpCompletion,
-    javaCompletion
+	pythonCompletion,
+	sqlCompletion,
+	cppCompletion,
+	csharpCompletion,
+	javaCompletion
 };
