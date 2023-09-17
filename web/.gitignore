@@ -1,8 +1,6 @@
 .DS_Store
 node_modules
 /dist
-venv
-.idea
 
 # local env files
 .env.local
@@ -24,4 +22,3 @@ pnpm-debug.log*
 *.sw?
 
 /package-lock.json
-/service/api/__pycache__/*.pyc
