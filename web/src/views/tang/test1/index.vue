@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<el-main>
 		<vxe-toolbar>
 			<template #buttons>
 				<vxe-button @click="allAlign = 'left'">居左</vxe-button>
@@ -20,7 +20,7 @@
 			<vxe-column field="sex" title="Sex"></vxe-column>
 			<vxe-column field="age" title="Age"></vxe-column>
 		</vxe-table>
-	</div>
+	</el-main>
 </template>
 
 <script>
