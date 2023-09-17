@@ -29,3 +29,6 @@ pnpm-debug.log*
 /service/apps/__pycache__
 /service/apps/api/migrations/__pycache__/*.pyc
 /service/service/middleware/__pycache__/*.pyc
+/service/service/__pycache__
+/service/apps/authority/__pycache__
+/service/apps/api/__pycache__
