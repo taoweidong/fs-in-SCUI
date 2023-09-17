@@ -12,14 +12,24 @@ module.exports = defineConfig({
 	//开发服务,build后的生产模式还需nginx代理
 	devServer: {
 		allowedHosts: 'all',
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		},
 		open: true, //运行后自动打开浏览器
 		port: process.env.VUE_APP_PORT, //挂载端口
 		proxy: {
 			'/api': {
 				target: process.env.VUE_APP_API_BASEURL,
 				ws: true,
+				changeOrigin: true,
 				pathRewrite: {
 					'^/api': '/'
+				},
+				onProxyRes(proxyRes, req, res) {
+					// console.log('proxyRes',proxyRes)
+					// console.log('req',req)
+					// console.log('res',res)
+					console.log(proxyRes.headers.location); // 打印代理之后的地址
 				}
 			}
 		}
