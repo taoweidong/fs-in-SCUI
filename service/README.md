@@ -1,1 +1,1 @@
-# Hello_Django 学习项目
+# Django 学习项目

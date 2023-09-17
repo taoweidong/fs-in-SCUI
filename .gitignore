@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 /package-lock.json
 /service/api/__pycache__/*.pyc
+/service/Hello_Django/__pycache__/*.pyc

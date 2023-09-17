@@ -54,7 +54,7 @@
 			<template #dropdown>
 				<el-dropdown-menu>
 					<el-dropdown-item command="uc">帐号信息</el-dropdown-item>
-					<el-dropdown-item command="clearCache">清除缓存</el-dropdown-item>
+					<!-- <el-dropdown-item command="clearCache">清除缓存</el-dropdown-item> -->
 					<el-dropdown-item divided command="outLogin">退出登录</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
@@ -153,7 +153,8 @@
 						confirmButtonText: '退出',
 						confirmButtonClass: 'el-button--danger'
 					}).then(() => {
-						this.$router.replace({path: '/login'});
+						this.$TOOL.data.clear()
+						this.$router.replace({path: '/login'})
 					}).catch(() => {
 						//取消退出
 					})
