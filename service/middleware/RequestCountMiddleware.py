@@ -1,3 +1,5 @@
+# !/usr/bin/python3
+# -*- coding: utf-8 -*-
 import logging
 
 from django.utils.deprecation import MiddlewareMixin

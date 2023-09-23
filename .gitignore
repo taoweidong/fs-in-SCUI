@@ -24,12 +24,6 @@ pnpm-debug.log*
 *.sw?
 
 /package-lock.json
-/service/api/__pycache__/*.pyc
-/service/Hello_Django/__pycache__/*.pyc
-/service/apps/__pycache__
-/service/apps/api/migrations/__pycache__/*.pyc
-/service/service/middleware/__pycache__/*.pyc
-/service/service/__pycache__
-/service/apps/authority/__pycache__
-/service/apps/api/__pycache__
-/service/logs/*.log
+*.pyc
+__pycache__
+*.log
