@@ -32,3 +32,4 @@ pnpm-debug.log*
 /service/service/__pycache__
 /service/apps/authority/__pycache__
 /service/apps/api/__pycache__
+/service/logs/*.log
