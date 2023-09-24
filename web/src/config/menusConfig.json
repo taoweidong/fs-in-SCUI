@@ -813,6 +813,16 @@
 						"component": "tang/test1"
 					},
 					{
+						"path": "/tang/test3",
+						"name": "test3",
+						"meta": {
+							"title": "VXE示例",
+							"icon": "el-icon-tools",
+							"type": "menu"
+						},
+						"component": "tang/test3"
+					},
+					{
 						"path": "/tang/test2",
 						"name": "test2",
 						"meta": {
