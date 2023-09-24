@@ -9,7 +9,7 @@ class CommonException(Exception):
 
     def __init__(self, enum_cls):
         self.code = enum_cls.code
-        self.errmsg = enum_cls.errmsg
+        self.errmsg = enum_cls.message
         self.enum_cls = enum_cls  # 状态码枚举类
         super().__init__()
 

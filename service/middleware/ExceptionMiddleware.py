@@ -31,12 +31,12 @@ class ExceptionMiddleware(MiddlewareMixin):
         elif isinstance(exception, DatabaseError):
             # 数据库异常
             r = R.set_result(StatusCodeEnum.DB_ERR)
-            logger.error(r.data(), exc_info=True)
+            logger.error(r.data, exc_info=True)
             return HttpResponseServerError(StatusCodeEnum.SERVER_ERR.errmsg)
 
         elif isinstance(exception, Exception):
             # 服务器异常处理
             r = R.server_error()
-            logger.error(r.data(), exc_info=True)
-            return HttpResponseServerError(r.errmsg)
+            logger.error(r.data, exc_info=True)
+            return HttpResponseServerError(r.message)
         return None

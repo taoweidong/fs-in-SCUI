@@ -1,4 +1,5 @@
 # result.py
+import json
 
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
@@ -15,40 +16,51 @@ class R(object):
 
     def __init__(self):
         self.code = None
-        self.errmsg = None
-        self._data = dict()
+        self.message = None
+        self.data = dict()
 
     @staticmethod
-    def ok():
+    def success(code=StatusCodeEnum.OK.code, data=None, message=StatusCodeEnum.OK.errmsg):
+        result = {
+            'code': code,
+            'data': json.dumps(data),
+            'message': message,
+        }
+        return result
+
+    @staticmethod
+    def ok(data=None):
         """
         组织成功响应信息
         :return:
         """
         r = R()
         r.code = StatusCodeEnum.OK.code
-        r.errmsg = StatusCodeEnum.OK.errmsg
-        return r
+        r.message = StatusCodeEnum.OK.errmsg
+        r.data = data
+        return r.__dict__
 
     @staticmethod
-    def error():
+    def error(data=None):
         """
         组织错误响应信息
         :return:
         """
         r = R()
         r.code = StatusCodeEnum.ERROR.code
-        r.errmsg = StatusCodeEnum.ERROR.errmsg
+        r.message = StatusCodeEnum.ERROR.errmsg
+        r.data = data
         return r
 
     @staticmethod
-    def server_error():
+    def server_error(message='服务器异常'):
         """
         组织服务器错误信息
         :return:
         """
         r = R()
         r.code = StatusCodeEnum.SERVER_ERR.code
-        r.errmsg = StatusCodeEnum.SERVER_ERR.errmsg
+        r.message = message
         return r
 
     @staticmethod
@@ -60,18 +72,5 @@ class R(object):
         """
         r = R()
         r.code = enum.code
-        r.errmsg = enum.errmsg
+        r.message = enum.message
         return r
-
-    def data(self, key=None, obj=None):
-        """统一后端返回的数据"""
-
-        if key:
-            self._data[key] = obj
-
-        context = {
-            'code': self.code,
-            'errmsg': self.errmsg,
-            'data': self._data
-        }
-        return context

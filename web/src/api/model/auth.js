@@ -8,5 +8,12 @@ export default {
 		post: async function(data={}){
 			return await http.post(this.url, data);
 		}
+	},
+	operation: {
+		url: `${config.API_URL}/auth/operation`,
+		name: "登录操作日志",
+		get: async function(params){
+			return await http.get(this.url, params);
+		}
 	}
 }

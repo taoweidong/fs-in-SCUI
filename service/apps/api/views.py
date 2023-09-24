@@ -13,5 +13,4 @@ class BookViewSet(viewsets.ModelViewSet):
 
 def article_detail(request):
     data = APIStatistics.objects.all()
-    # 返回访问数量
     return JsonResponse({'data': list(data.values())})
