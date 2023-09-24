@@ -1,9 +1,60 @@
 <template>
 	<el-main>
-		<p>
-			<vxe-input v-model="filterName" type="search" placeholder="试试全表搜索" @keyup="searchEvent"></vxe-input>
-		</p>
+		<vxe-form v-model:collapseStatus="collapseStatus" :data="formData" :rules="formRules" title-align="right"
+			title-width="100" prevent-submit title-colon custom-layout>
+			<!-- <vxe-input v-model="filterName" type="search" placeholder="试试全表搜索" @keyup="searchEvent"></vxe-input> -->
+			<div style="border: 1px dashed green;padding: 10px;">
+				<vxe-form-item title="昵称" field="nickname"
+					:title-prefix="{ message: '左边图标', icon: 'vxe-icon-question-circle-fill' }">
+					<template #default="{ data }">
+						<vxe-input v-model="data.nickname" placeholder="请输入昵称" clearable></vxe-input>
+					</template>
+				</vxe-form-item>
+				<vxe-form-item title="性别" field="sex" :item-render="{}"
+					:title-prefix="{ message: '左边图标', icon: 'vxe-icon-user-fill' }"
+					:title-suffix="{ message: '右边图标', icon: 'vxe-icon-warning-triangle' }">
+					<template #title>
+						<span style="color: red;">标题</span>
+					</template>
+					<template #default="{ data }">
+						<vxe-select v-model="data.sex" placeholder="请选择性别" clearable>
+							<vxe-option value="1" label="女"></vxe-option>
+							<vxe-option value="2" label="男"></vxe-option>
+						</vxe-select>
+					</template>
+				</vxe-form-item>
+				<vxe-form-item title="年龄" field="age" :item-render="{}"
+					:title-suffix="{ message: '右边图标', icon: 'vxe-icon-setting-fill' }">
+					<template #default="{ data }">
+						<vxe-input v-model="data.age" type="integer" placeholder="请输入年龄" clearable></vxe-input>
+					</template>
+				</vxe-form-item>
+				<vxe-form-item title="是否禁用" field="active" :item-render="{}">
+					<template #default="{ data }">
+						<vxe-switch v-model="data.active" open-label="是" close-label="否"></vxe-switch>
+					</template>
+				</vxe-form-item>
 
+				<vxe-form-item title="日期" field="date" :item-render="{}" folding>
+					<template #default="{ data }">
+						<vxe-input v-model="data.date" type="date" placeholder="请选择日期" clearable></vxe-input>
+					</template>
+				</vxe-form-item>
+				<vxe-form-item title="兴趣爱好" field="flagList" :item-render="{}" folding>
+					<template #default="{ data }">
+						<vxe-checkbox-group v-model="data.flagList">
+							<vxe-checkbox label="1" content="爬山"></vxe-checkbox>
+							<vxe-checkbox label="2" content="跑步"></vxe-checkbox>
+							<vxe-checkbox label="3" content="听歌"></vxe-checkbox>
+						</vxe-checkbox-group>
+					</template>
+				</vxe-form-item>
+			</div>
+			<div>
+				<vxe-form-item align="center" collapse-node>
+				</vxe-form-item>
+			</div>
+		</vxe-form>
 		<vxe-table border height="300" :column-config="{ useKey: true }" :row-config="{ useKey: true }" :data="list">
 			<vxe-column type="seq" width="80"></vxe-column>
 			<vxe-column field="name" title="Name" type="html"></vxe-column>
@@ -26,7 +77,27 @@ export default {
 	data() {
 		return {
 			list: [],
+			date: '',
+			collapseStatus: true,
 			filterName: '',
+			formData: {
+				name: '',
+				nickname: '',
+				sex: '',
+				age: 30,
+				status: '1',
+				date: '',
+				active: false,
+				flagList: []
+			},
+			formRules: {
+				name: [
+					{ required: true, message: '请输入' }
+				],
+				nickname: [
+					{ required: true, message: '请输入' }
+				]
+			},
 			allAlign: null,
 			tableData: [
 				{ id: 10001, name: 'Test1', role: 'Develop', sex: '0', age: 28, amount: 888, address: 'test abc' },
