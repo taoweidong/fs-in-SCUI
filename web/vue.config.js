@@ -25,12 +25,10 @@ module.exports = defineConfig({
 				pathRewrite: {
 					'^/api': '/'
 				},
-				onProxyRes(proxyRes, req, res) {
-					// console.log('proxyRes',proxyRes)
-					// console.log('req',req)
-					// console.log('res',res)
-					console.log(proxyRes.headers.location); // 打印代理之后的地址
-				}
+				onProxyReq: function (proxyReq, req, res) {
+					console.log(req, res)
+					console.log('Proxy Request:', process.env.VUE_APP_API_BASEURL + proxyReq.path);
+				},
 			}
 		}
 	},

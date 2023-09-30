@@ -20,10 +20,20 @@ class R(object):
         self.data = dict()
 
     @staticmethod
+    def table_data(total: int, page: int, page_size: int, rows: list):
+        result = {
+            'total': total,
+            'page': page,
+            'rows': rows,
+            'pageSize': page_size,
+        }
+        return R.success(data=result)
+
+    @staticmethod
     def success(code=StatusCodeEnum.OK.code, data=None, message=StatusCodeEnum.OK.errmsg):
         result = {
             'code': code,
-            'data': json.dumps(data),
+            'data': data,
             'message': message,
         }
         return result

@@ -10,7 +10,7 @@ from enum import Enum
 class StatusCodeEnum(Enum):
     """状态码枚举类"""
 
-    OK = (0, '成功')
+    OK = (200, '成功')
     ERROR = (-1, '错误')
     SERVER_ERR = (500, '服务器异常')
 

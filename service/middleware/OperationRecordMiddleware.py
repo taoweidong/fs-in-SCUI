@@ -18,7 +18,7 @@ class OperationRecordMiddleware(MiddlewareMixin):
         self.end_time = None  # 响应时间
         self.data = {}  # dict数据
         # 定义不需要记录日志的url名单
-        self.__exclude_urls = ['/auth/token/']
+        self.__exclude_urls = ['/auth/token/', 'auth/operation']
 
     def process_request(self, request):
         # 开始时间

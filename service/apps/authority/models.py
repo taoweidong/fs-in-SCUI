@@ -27,6 +27,6 @@ class OpLogs(models.Model):
     re_content = models.TextField(null=True, verbose_name='请求参数')
     rp_content = models.TextField(null=True, verbose_name='响应参数')
     access_time = models.IntegerField(verbose_name='响应耗时/ms')
-
+    objects = models.Manager()
     class Meta:
         db_table = 'op_logs'
