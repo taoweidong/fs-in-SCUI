@@ -6,7 +6,7 @@ import time
 
 from django.utils.deprecation import MiddlewareMixin
 
-from apps.authority.models import AccessTimeOutLogs, OpLogs
+from apps.system.models import AccessTimeOutLogs, OpLogs
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class OperationRecordMiddleware(MiddlewareMixin):
         self.end_time = None  # 响应时间
         self.data = {}  # dict数据
         # 定义不需要记录日志的url名单
-        self.__exclude_urls = ['/auth/token/', 'auth/operation']
+        self.__exclude_urls = ['/auth/token/', '/system/operation']
 
     def process_request(self, request):
         # 开始时间

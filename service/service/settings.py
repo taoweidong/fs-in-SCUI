@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.api',
     'apps.authority',
+    'apps.system',
 
 ]
 

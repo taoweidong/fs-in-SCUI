@@ -26,7 +26,7 @@ module.exports = defineConfig({
 					'^/api': '/'
 				},
 				onProxyReq: function (proxyReq, req, res) {
-					console.log(req, res)
+					// console.log(req, res)
 					console.log('Proxy Request:', process.env.VUE_APP_API_BASEURL + proxyReq.path);
 				},
 			}
