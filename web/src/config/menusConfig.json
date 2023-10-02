@@ -692,16 +692,6 @@
 				},
 				"children": [
 					{
-						"path": "/setting/system",
-						"name": "system",
-						"meta": {
-							"title": "系统设置",
-							"icon": "el-icon-tools",
-							"type": "menu"
-						},
-						"component": "setting/system"
-					},
-					{
 						"path": "/setting/user",
 						"name": "user",
 						"meta": {
@@ -712,26 +702,6 @@
 						"component": "setting/user"
 					},
 					{
-						"path": "/setting/role",
-						"name": "role",
-						"meta": {
-							"title": "角色管理",
-							"icon": "el-icon-notebook",
-							"type": "menu"
-						},
-						"component": "setting/role"
-					},
-					{
-						"path": "/setting/dept",
-						"name": "dept",
-						"meta": {
-							"title": "部门管理",
-							"icon": "sc-icon-organization",
-							"type": "menu"
-						},
-						"component": "setting/dept"
-					},
-					{
 						"path": "/setting/dic",
 						"name": "dic",
 						"meta": {
@@ -740,16 +710,6 @@
 							"type": "menu"
 						},
 						"component": "setting/dic"
-					},
-					{
-						"path": "/setting/table",
-						"name": "tableSetting",
-						"meta": {
-							"title": "表格列管理",
-							"icon": "el-icon-scale-to-original",
-							"type": "menu"
-						},
-						"component": "setting/table"
 					},
 					{
 						"path": "/setting/menu",
@@ -770,16 +730,6 @@
 							"type": "menu"
 						},
 						"component": "setting/task"
-					},
-					{
-						"path": "/setting/client",
-						"name": "client",
-						"meta": {
-							"title": "应用管理",
-							"icon": "el-icon-help-filled",
-							"type": "menu"
-						},
-						"component": "setting/client"
 					},
 					{
 						"path": "/setting/log",
