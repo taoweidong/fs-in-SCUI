@@ -15,10 +15,6 @@ class RequestCountMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def process_request(self, request):
-        logger.debug('This is a debug message  测试日志')
-        logger.info('This is an info message  测试日志')
-        logger.warning('This is a warning message  测试日志')
-        logger.error('This is an error message  测试日志')
         # 在请求到达视图函数前进行处理
         # 这里可以增加一些条件判断，例如只统计特定的接口
         # 在每个请求上增加一个访问计数属性

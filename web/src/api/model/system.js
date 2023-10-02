@@ -47,9 +47,23 @@ export default {
 				return await http.post(this.url, data);
 			}
 		},
-		save_sub:{
+		save_sub: {
 			url: `${config.API_URL}/system/dic/save_sub`,
 			name: "设置字典值",
+			post: async function (data = {}) {
+				return await http.post(this.url, data);
+			}
+		},
+		delete: {
+			url: `${config.API_URL}/system/dic/delete`,
+			name: "删除字典值",
+			post: async function (data = {}) {
+				return await http.post(this.url, data);
+			}
+		},
+		refresh_status: {
+			url: `${config.API_URL}/system/dic/refresh_status`,
+			name: "更新状态",
 			post: async function (data = {}) {
 				return await http.post(this.url, data);
 			}

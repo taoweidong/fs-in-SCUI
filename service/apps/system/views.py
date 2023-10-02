@@ -1,5 +1,5 @@
-import datetime
 import json
+import logging
 
 from django.core.paginator import Paginator
 from django.forms import model_to_dict
@@ -9,9 +9,12 @@ from django.utils.timezone import now
 from apps.system.models import OpLogs, Dictionary
 from utils.result import R
 
+logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 def hello(request):
+    logger.info("触发查询")
     return JsonResponse(data="hello")
 
 
@@ -82,9 +85,9 @@ def save_sub(request):
     param = json.loads(request.body)
     dict_sub_id = param.get('id', '')
     dict_id = param.get('dic', '')
-    code = param.get('key')
+    code = param.get('code')
     name = param.get('name')
-    status = param.get('yx')
+    status = param.get('status')
 
     if dict_sub_id is None or len(str(dict_sub_id).strip()) == 0:
         # 新增
@@ -100,3 +103,22 @@ def save_sub(request):
         dict_data.save()
 
     return JsonResponse(data=R.success(), safe=False)
+
+
+def delete(request):
+    param = json.loads(request.body)
+    dict_ids = param.get('id', [])
+    Dictionary.objects.filter(parent_id__in=dict_ids).delete()
+    Dictionary.objects.filter(id__in=dict_ids).delete()
+    return JsonResponse(data=R.success(data="删除成功"), safe=False)
+
+
+def refresh_status(request):
+    param = json.loads(request.body)
+    dict_id = param.get('id', '')
+    status = param.get('value', '')
+    dict_data = Dictionary.objects.filter(id=dict_id).get()
+    dict_data.status = status
+    dict_data.update_datetime = now()
+    dict_data.save()
+    return JsonResponse(data=R.success(data="状态更新成功"), safe=False)

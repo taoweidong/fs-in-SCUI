@@ -97,6 +97,7 @@ export default {
 				dic: false,
 				info: false
 			},
+			select_code: '',
 			showDicloading: true,
 			dicList: [],
 			dicFilterText: '',
@@ -160,6 +161,7 @@ export default {
 		},
 		//树点击事件
 		dicClick(data) {
+			this.select_code = data.code
 			this.$refs.table.reload({
 				code: data.code
 			})
@@ -168,27 +170,32 @@ export default {
 		dicDel(node, data) {
 			this.$confirm(`确定删除 ${data.name} 项吗？`, '提示', {
 				type: 'warning'
-			}).then(() => {
+			}).then(async () => {
 				this.showDicloading = true;
 
 				//删除节点是否为高亮当前 是的话 设置第一个节点高亮
 				var dicCurrentKey = this.$refs.dic.getCurrentKey();
-				this.$refs.dic.remove(data.id)
-				if (dicCurrentKey == data.id) {
-					var firstNode = this.dicList[0];
-					if (firstNode) {
-						this.$refs.dic.setCurrentKey(firstNode.id);
-						this.$refs.table.upData({
-							code: firstNode.code
-						})
-					} else {
-						this.listApi = null;
-						this.$refs.table.tableData = []
+				var reqData = { id: [dicCurrentKey] }
+				var res = await this.$API.system.dic.delete.post(reqData);
+				if (res.code == 200) {
+					this.$refs.dic.remove(data.id)
+					if (dicCurrentKey == data.id) {
+						var firstNode = this.dicList[0];
+						if (firstNode) {
+							this.$refs.dic.setCurrentKey(firstNode.id);
+							this.$refs.table.upData({
+								code: firstNode.code
+							})
+						} else {
+							this.listApi = null;
+							this.$refs.table.tableData = []
+						}
 					}
+					this.$message.success("删除成功")
+				} else {
+					this.$alert(res.message, "提示", { type: 'error' })
 				}
-
 				this.showDicloading = false;
-				this.$message.success("操作成功")
 			}).catch(() => {
 
 			})
@@ -214,6 +221,7 @@ export default {
 			this.dialog.list = true
 			this.$nextTick(() => {
 				var dicCurrentKey = this.$refs.dic.getCurrentKey();
+				console.log(dicCurrentKey)
 				const data = {
 					dic: dicCurrentKey
 				}
@@ -223,14 +231,17 @@ export default {
 		//编辑明细
 		table_edit(row) {
 			this.dialog.list = true
+			var dicCurrentKey = this.$refs.dic.getCurrentKey();
+			row.dic = dicCurrentKey
 			this.$nextTick(() => {
 				this.$refs.listDialog.open('edit').setData(row)
 			})
 		},
 		//删除明细
 		async table_del(row, index) {
-			var reqData = { id: row.id }
-			var res = await this.$API.demo.post.post(reqData);
+			console.log(row)
+			var reqData = { id: [row.id] }
+			var res = await this.$API.system.dic.delete.post(reqData);
 			if (res.code == 200) {
 				this.$refs.table.tableData.splice(index, 1);
 				this.$message.success("删除成功")
@@ -242,17 +253,28 @@ export default {
 		async batch_del() {
 			this.$confirm(`确定删除选中的 ${this.selection.length} 项吗？`, '提示', {
 				type: 'warning'
-			}).then(() => {
-				const loading = this.$loading();
+			}).then(async () => {
+				const del_ids = []
+				// 刪除数据
 				this.selection.forEach(item => {
-					this.$refs.table.tableData.forEach((itemI, indexI) => {
-						if (item.id === itemI.id) {
-							this.$refs.table.tableData.splice(indexI, 1)
-						}
-					})
+					del_ids.push(item.id)
 				})
-				loading.close();
-				this.$message.success("操作成功")
+				var reqData = { id: del_ids }
+				var res = await this.$API.system.dic.delete.post(reqData);
+				if (res.code == 200) {
+					const loading = this.$loading();
+					this.selection.forEach(item => {
+						this.$refs.table.tableData.forEach((itemI, indexI) => {
+							if (item.id === itemI.id) {
+								this.$refs.table.tableData.splice(indexI, 1)
+							}
+						})
+					})
+					loading.close();
+					this.$message.success("删除成功")
+				} else {
+					this.$alert(res.message, "提示", { type: 'error' })
+				}
 			}).catch(() => {
 
 			})
@@ -277,17 +299,21 @@ export default {
 			this.selection = selection;
 		},
 		//表格内开关事件
-		changeSwitch(val, row) {
+		async changeSwitch(val, row) {
 			//1.还原数据
 			row.status = row.status == '1' ? '0' : '1'
 			//2.执行加载
 			row.$switch_status = true;
 			//3.等待接口返回后改变值
-			setTimeout(() => {
-				delete row.$switch_status;
-				row.status = val;
-				this.$message.success(`操作成功id:${row.id} val:${val}`)
-			}, 500)
+
+			var reqData = { id: row.id, value: val }
+			var res = await this.$API.system.dic.refresh_status.post(reqData);
+			if (res.code == 200) {
+				this.$refs.table.reload({ code: this.select_code })
+				this.$message.success("状态更新成功")
+			} else {
+				this.$alert(res.message, "提示", { type: 'error' })
+			}
 		},
 		//本地更新数据
 		handleDicSuccess(data, mode) {
@@ -364,4 +390,5 @@ export default {
 
 .custom-tree-node:hover .do {
 	display: inline-block;
-}</style>
+}
+</style>
