@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 
+
 class AccessTimeOutLogs(models.Model):
     id = models.AutoField(primary_key=True)
     re_time = models.CharField(max_length=32, verbose_name='请求时间')
@@ -28,8 +29,10 @@ class OpLogs(models.Model):
     rp_content = models.TextField(null=True, verbose_name='响应参数')
     access_time = models.IntegerField(verbose_name='响应耗时/ms')
     objects = models.Manager()
+
     class Meta:
         db_table = 'sys_operation_logs'
+
 
 # Create your models here.
 class Dictionary(models.Model):
@@ -42,8 +45,7 @@ class Dictionary(models.Model):
     create_datetime = models.DateTimeField(auto_now_add=True, null=True, blank=True, help_text="创建时间",
                                            verbose_name="创建时间")
     code = models.CharField(max_length=100, blank=True, null=True, verbose_name="编码", help_text="编码")
-    label = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
-    value = models.CharField(max_length=100, blank=True, null=True, verbose_name="实际值", help_text="实际值")
+    name = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
     parent = models.ForeignKey(to='self', related_name='sublist', db_constraint=False, on_delete=models.PROTECT,
                                blank=True, null=True, verbose_name="父级", help_text="父级")
     STATUS_CHOICES = (
