@@ -10,7 +10,7 @@ export default {
 		}
 	},
 	operation: {
-		url: `${config.API_URL}/auth/operation`,
+		url: `${config.API_URL}/system/operation`,
 		name: "登录操作日志",
 		get: async function(params){
 			return await http.get(this.url, params);
