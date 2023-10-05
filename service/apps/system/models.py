@@ -48,11 +48,7 @@ class Dictionary(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
     parent = models.ForeignKey(to='self', related_name='sublist', db_constraint=False, on_delete=models.PROTECT,
                                blank=True, null=True, verbose_name="父级", help_text="父级")
-    STATUS_CHOICES = (
-        (0, "禁用"),
-        (1, "启用"),
-    )
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="状态", help_text="状态")
+    status = models.BooleanField(default=True, verbose_name="状态", help_text="状态")
     sort = models.IntegerField(default=1, verbose_name="显示排序", null=True, blank=True, help_text="显示排序")
     remark = models.CharField(max_length=2000, blank=True, null=True, verbose_name="备注", help_text="备注")
 

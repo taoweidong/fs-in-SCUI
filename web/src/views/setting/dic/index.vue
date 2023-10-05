@@ -36,26 +36,29 @@
 					<el-button type="primary" icon="el-icon-plus" @click="addInfo"></el-button>
 					<el-button type="danger" plain icon="el-icon-delete" :disabled="selection.length == 0"
 						@click="batch_del"></el-button>
+					<el-select v-model="value" placeholder="Select">
+						<el-option v-for="item in options" :key="item.key" :label="item.label" :value="item.key" />
+					</el-select>
 				</div>
 			</el-header>
 			<el-main class="nopadding">
 				<scTable ref="table" :apiObj="listApi" row-key="id" :params="listApiParams"
 					@selection-change="selectionChange" stripe :paginationLayout="'prev, pager, next'">
 					<el-table-column type="selection" width="50"></el-table-column>
-					<el-table-column label="" width="60">
+					<!-- <el-table-column label="" width="60">
 						<template #default>
 							<el-tag class="move" style="cursor: move;"><el-icon-d-caret
 									style="width: 1em; height: 1em;" /></el-tag>
 						</template>
-					</el-table-column>
+					</el-table-column> -->
 					<el-table-column label="名称" prop="name" width="150"></el-table-column>
 					<el-table-column label="键值" prop="code" width="150"></el-table-column>
 					<el-table-column label="是否有效" prop="status" width="100">
 						<template #default="scope">
-							<el-switch v-model="scope.row.status" @change="changeSwitch($event, scope.row)"
-								:loading="scope.row.$switch_status" active-value="1" inactive-value="0"></el-switch>
+							<el-switch v-model="scope.row.status" @change="changeSwitch($event, scope.row)"></el-switch>
 						</template>
 					</el-table-column>
+					<el-table-column label="序号" prop="sort" width="150"></el-table-column>
 					<el-table-column label="操作" fixed="right" align="right" width="120">
 						<template #default="scope">
 							<el-button-group>
@@ -97,6 +100,8 @@ export default {
 				dic: false,
 				info: false
 			},
+			value: '',
+			options: [],
 			select_code: '',
 			showDicloading: true,
 			dicList: [],
@@ -116,9 +121,17 @@ export default {
 	},
 	mounted() {
 		this.getDic()
-		this.rowDrop()
+		this.get_init_dict()
 	},
 	methods: {
+		async get_init_dict() {
+			var reqData = { code: 'VersionDict' }
+			var res = await this.$API.system.dic.get.get(reqData);
+			if (res.code == 200) {
+				console.log(res)
+				this.options = res.data
+			}
+		},
 		//加载树数据
 		async getDic() {
 			var res = await this.$API.system.dic.tree.get();
@@ -300,33 +313,28 @@ export default {
 		},
 		//表格内开关事件
 		async changeSwitch(val, row) {
-			//1.还原数据
-			row.status = row.status == '1' ? '0' : '1'
-			//2.执行加载
-			row.$switch_status = true;
+			console.log(row.status, val)
 			//3.等待接口返回后改变值
-
-			var reqData = { id: row.id, value: val }
-			var res = await this.$API.system.dic.refresh_status.post(reqData);
-			if (res.code == 200) {
-				this.$refs.table.reload({ code: this.select_code })
-				this.$message.success("状态更新成功")
-			} else {
-				this.$alert(res.message, "提示", { type: 'error' })
+			if (row.status != val) {
+				var reqData = { id: row.id, value: val }
+				var res = await this.$API.system.dic.refresh_status.post(reqData);
+				if (res.code == 200) {
+					this.$refs.table.reload({ code: this.select_code })
+					this.$message.success("状态更新成功")
+				} else {
+					this.$alert(res.message, "提示", { type: 'error' })
+				}
 			}
+
 		},
 		//本地更新数据
 		handleDicSuccess(data, mode) {
 			if (mode == 'add') {
 				data.id = new Date().getTime()
 				if (this.dicList.length > 0) {
-					this.$refs.table.upData({
-						code: data.code
-					})
+					this.$refs.table.upData({ code: data.code })
 				} else {
-					this.listApiParams = {
-						code: data.code
-					}
+					this.listApiParams = { code: data.code }
 					this.listApi = this.$API.dic.info;
 				}
 				this.$refs.dic.append(data, data.parentId[0])

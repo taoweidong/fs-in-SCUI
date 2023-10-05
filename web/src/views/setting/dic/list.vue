@@ -14,6 +14,9 @@
 			<el-form-item label="是否有效" prop="status">
 				<el-switch v-model="form.status" active-value="1" inactive-value="0"></el-switch>
 			</el-form-item>
+			<el-form-item label="序号" prop="sort">
+				<el-input-number v-model="form.sort" :min="1" :max="10" />
+			</el-form-item>
 		</el-form>
 		<template #footer>
 			<el-button @click="visible = false">取 消</el-button>
@@ -39,7 +42,8 @@ export default {
 				dic: "",
 				name: "",
 				code: "",
-				status: "1"
+				status: "1",
+				sort: 1
 			},
 			rules: {
 				dic: [
@@ -50,6 +54,9 @@ export default {
 				],
 				code: [
 					{ required: true, message: '请输入键值' }
+				],
+				sort: [
+					{ required: true, message: '请输入序号' }
 				]
 			},
 			dic: [],
@@ -103,6 +110,7 @@ export default {
 			this.form.code = data.code
 			this.form.status = data.status
 			this.form.dic = data.dic
+			this.form.sort = data.sort
 		}
 	}
 }

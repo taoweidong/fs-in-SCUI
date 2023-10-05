@@ -41,7 +41,7 @@ def dict_list(request):
     if dict_info is None:
         data = R.table_data(page=page_number, page_size=records_per_page, total=0, rows=[])
         return JsonResponse(data=data, safe=False)
-    queryset = Dictionary.objects.filter(parent_id=dict_info.id).all()
+    queryset = Dictionary.objects.filter(parent_id=dict_info.id).order_by('sort').all()
     paginator = Paginator(queryset, records_per_page)  # 每页显示指定数量的记录
     page_obj = paginator.get_page(page_number)  # 获取指定页码的对象
     total = paginator.count
@@ -66,16 +66,18 @@ def dict_save(request):
     dict_id = param.get('id', '')
     name = param.get('name')
     code = param.get('code')
+    sort = param.get('sort', 1)
 
     if dict_id is None or len(str(dict_id).strip()) == 0:
         # 新增
-        new_dict = Dictionary(code=code, name=name, update_datetime=now())
+        new_dict = Dictionary(code=code, name=name, update_datetime=now(), sort=int(sort))
         new_dict.save()
     else:
         dict_data = Dictionary.objects.filter(id=dict_id).get()
         dict_data.code = code
         dict_data.name = name
         dict_data.update_datetime = now()
+        dict_data.sort = sort
         dict_data.save()
 
     return JsonResponse(data=R.success(data=''), safe=False)
@@ -88,10 +90,11 @@ def save_sub(request):
     code = param.get('code')
     name = param.get('name')
     status = param.get('status')
+    sort = int(param.get('sort'))
 
     if dict_sub_id is None or len(str(dict_sub_id).strip()) == 0:
         # 新增
-        new_dict = Dictionary(code=code, name=name, create_datetime=now(), status=status, parent_id=dict_id)
+        new_dict = Dictionary(code=code, name=name, create_datetime=now(), status=status, parent_id=dict_id, sort=sort)
         new_dict.save()
     else:
         dict_data = Dictionary.objects.filter(id=dict_sub_id).get()
@@ -100,6 +103,7 @@ def save_sub(request):
         dict_data.name = name
         dict_data.status = status
         dict_data.update_datetime = now()
+        dict_data.sort = sort
         dict_data.save()
 
     return JsonResponse(data=R.success(), safe=False)
@@ -122,3 +126,16 @@ def refresh_status(request):
     dict_data.update_datetime = now()
     dict_data.save()
     return JsonResponse(data=R.success(data="状态更新成功"), safe=False)
+
+
+def dict_get(request):
+    code = request.GET.get('code')
+    dict_info = Dictionary.objects.filter(code=code).first()
+    result = []
+    if dict_info is None:
+        return JsonResponse(data=R.success(data=result), safe=False)
+    queryset = Dictionary.objects.filter(parent_id=dict_info.id).all()
+    json_data = []
+    for i in queryset:
+        json_data.append({"key": i.code, "label": i.name})
+    return JsonResponse(data=R.success(data=json_data), safe=False)
