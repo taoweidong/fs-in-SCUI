@@ -126,7 +126,7 @@ def refresh_status(request):
         dict_data.status = status
         dict_data.update_datetime = now()
         dict_data.save()
-        return JsonResponse(data=R.success(data="状态更新成功"), safe=False)
+        return R.success(data="状态更新成功")
     except ObjectDoesNotExist:
         # 查询结果不存在，执行相应的操作
         logger.exception(f"对象不存在:{dict_id}")
