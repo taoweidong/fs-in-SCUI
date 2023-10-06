@@ -1,6 +1,7 @@
 import json
 import logging
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.forms import model_to_dict
 from django.http import JsonResponse
@@ -62,7 +63,6 @@ def dict_tree(request):
 
 def dict_save(request):
     param = json.loads(request.body)
-    print(param)
     dict_id = param.get('id', '')
     name = param.get('name')
     code = param.get('code')
@@ -120,12 +120,20 @@ def delete(request):
 def refresh_status(request):
     param = json.loads(request.body)
     dict_id = param.get('id', '')
-    status = param.get('value', '')
-    dict_data = Dictionary.objects.filter(id=dict_id).get()
-    dict_data.status = status
-    dict_data.update_datetime = now()
-    dict_data.save()
-    return JsonResponse(data=R.success(data="状态更新成功"), safe=False)
+    status = param.get('value', True)
+
+    try:
+        dict_data = Dictionary.objects.filter(id=dict_id).get()
+        # 查询成功，执行相应的操作
+        dict_data.status = status
+        dict_data.update_datetime = now()
+        dict_data.save()
+        return JsonResponse(data=R.success(data="状态更新成功"), safe=False)
+    except ObjectDoesNotExist:
+        # 查询结果不存在，执行相应的操作
+        logger.exception(f"对象不存在:{dict_id}")
+
+    return JsonResponse(data=R.success(data=f"对象不存在:{dict_id}"), safe=False)
 
 
 def dict_get(request):
@@ -137,5 +145,6 @@ def dict_get(request):
     queryset = Dictionary.objects.filter(parent_id=dict_info.id).all()
     json_data = []
     for i in queryset:
-        json_data.append({"key": i.code, "label": i.name})
+        if i.status:
+            json_data.append({"key": i.code, "label": i.name})
     return JsonResponse(data=R.success(data=json_data), safe=False)

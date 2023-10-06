@@ -3,19 +3,19 @@
 		<el-form :model="form" :rules="rules" ref="dialogForm" label-width="100px" label-position="left">
 			<el-form-item label="所属字典" prop="dic">
 				<el-cascader disabled v-model="form.dic" :options="dic" :props="dicProps" :show-all-levels="false"
-					clearable></el-cascader>
+					clearable style="width: 200px;"></el-cascader>
 			</el-form-item>
 			<el-form-item label="项名称" prop="name">
-				<el-input v-model="form.name" clearable></el-input>
+				<el-input v-model="form.name" clearable style="width: 200px;"></el-input>
 			</el-form-item>
 			<el-form-item label="键值" prop="code">
-				<el-input v-model="form.code" clearable></el-input>
+				<el-input v-model="form.code" clearable style="width: 200px;"></el-input>
 			</el-form-item>
 			<el-form-item label="是否有效" prop="status">
-				<el-switch v-model="form.status" active-value="1" inactive-value="0"></el-switch>
+				<el-switch v-model="form.status" active-value="1" inactive-value="0" style="width: 200px;"></el-switch>
 			</el-form-item>
 			<el-form-item label="序号" prop="sort">
-				<el-input-number v-model="form.sort" :min="1" :max="10" />
+				<el-input-number v-model="form.sort" :min="1" :max="10" style="width: 200px;" />
 			</el-form-item>
 		</el-form>
 		<template #footer>
@@ -42,7 +42,7 @@ export default {
 				dic: "",
 				name: "",
 				code: "",
-				status: "1",
+				status: true,
 				sort: 1
 			},
 			rules: {

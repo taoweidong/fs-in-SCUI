@@ -128,7 +128,6 @@ export default {
 			var reqData = { code: 'VersionDict' }
 			var res = await this.$API.system.dic.get.get(reqData);
 			if (res.code == 200) {
-				console.log(res)
 				this.options = res.data
 			}
 		},
@@ -146,6 +145,7 @@ export default {
 				this.listApiParams = {
 					code: firstNode.code
 				}
+				this.select_code = firstNode.code
 				this.listApi = this.$API.system.dic.list;
 			}
 		},
@@ -234,9 +234,9 @@ export default {
 			this.dialog.list = true
 			this.$nextTick(() => {
 				var dicCurrentKey = this.$refs.dic.getCurrentKey();
-				console.log(dicCurrentKey)
 				const data = {
-					dic: dicCurrentKey
+					dic: dicCurrentKey,
+					sort: 1
 				}
 				this.$refs.listDialog.open().setData(data)
 			})
@@ -313,43 +313,22 @@ export default {
 		},
 		//表格内开关事件
 		async changeSwitch(val, row) {
-			console.log(row.status, val)
+			row.status = val
 			//3.等待接口返回后改变值
-			if (row.status != val) {
-				var reqData = { id: row.id, value: val }
-				var res = await this.$API.system.dic.refresh_status.post(reqData);
-				if (res.code == 200) {
-					this.$refs.table.reload({ code: this.select_code })
-					this.$message.success("状态更新成功")
-				} else {
-					this.$alert(res.message, "提示", { type: 'error' })
-				}
+			var reqData = { id: row.id, value: val }
+			var res = await this.$API.system.dic.refresh_status.post(reqData);
+			if (res.code == 200) {
+				this.$refs.table.reload({ code: this.select_code })
+				this.$message.success("状态更新成功")
+			} else {
+				this.$alert(res.message, "提示", { type: 'error' })
 			}
 
 		},
 		//本地更新数据
 		handleDicSuccess(data, mode) {
-			if (mode == 'add') {
-				data.id = new Date().getTime()
-				if (this.dicList.length > 0) {
-					this.$refs.table.upData({ code: data.code })
-				} else {
-					this.listApiParams = { code: data.code }
-					this.listApi = this.$API.dic.info;
-				}
-				this.$refs.dic.append(data, data.parentId[0])
-				this.$refs.dic.setCurrentKey(data.id)
-			} else if (mode == 'edit') {
-				var editNode = this.$refs.dic.getNode(data.id);
-				//判断是否移动？
-				var editNodeParentId = editNode.level == 1 ? undefined : editNode.parent.data.id
-				if (editNodeParentId != data.parentId) {
-					var obj = editNode.data;
-					this.$refs.dic.remove(data.id)
-					this.$refs.dic.append(obj, data.parentId[0])
-				}
-				Object.assign(editNode.data, data)
-			}
+			console.log(data, mode)
+			this.getDic()
 		},
 		//本地更新数据
 		handleListSuccess(data, mode) {
