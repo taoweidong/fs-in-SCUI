@@ -29,8 +29,7 @@ def operation_list(request):
     json_data = []
     for i in page_obj.object_list:
         json_data.append(model_to_dict(i))
-    data = R.table_data(page=page_number, page_size=records_per_page, total=total, rows=json_data)
-    return JsonResponse(data=data, safe=False)
+    return R.table_data(page=page_number, page_size=records_per_page, total=total, rows=json_data)
 
 
 def dict_list(request):
@@ -49,8 +48,7 @@ def dict_list(request):
     json_data = []
     for i in page_obj.object_list:
         json_data.append(model_to_dict(i))
-    data = R.table_data(page=page_number, page_size=records_per_page, total=total, rows=json_data)
-    return JsonResponse(data=data, safe=False)
+    return R.table_data(page=page_number, page_size=records_per_page, total=total, rows=json_data)
 
 
 def dict_tree(request):
@@ -58,7 +56,7 @@ def dict_tree(request):
     json_data = []
     for i in queryset:
         json_data.append(model_to_dict(i))
-    return JsonResponse(data=R.success(data=json_data), safe=False)
+    return R.success(data=json_data)
 
 
 def dict_save(request):
@@ -80,7 +78,7 @@ def dict_save(request):
         dict_data.sort = sort
         dict_data.save()
 
-    return JsonResponse(data=R.success(data=''), safe=False)
+    return R.success()
 
 
 def save_sub(request):
@@ -106,7 +104,7 @@ def save_sub(request):
         dict_data.sort = sort
         dict_data.save()
 
-    return JsonResponse(data=R.success(), safe=False)
+    return R.success()
 
 
 def delete(request):
@@ -114,7 +112,7 @@ def delete(request):
     dict_ids = param.get('id', [])
     Dictionary.objects.filter(parent_id__in=dict_ids).delete()
     Dictionary.objects.filter(id__in=dict_ids).delete()
-    return JsonResponse(data=R.success(data="删除成功"), safe=False)
+    return R.success(data="删除成功")
 
 
 def refresh_status(request):
@@ -133,7 +131,7 @@ def refresh_status(request):
         # 查询结果不存在，执行相应的操作
         logger.exception(f"对象不存在:{dict_id}")
 
-    return JsonResponse(data=R.success(data=f"对象不存在:{dict_id}"), safe=False)
+    return R.success(data=f"对象不存在:{dict_id}")
 
 
 def dict_get(request):
@@ -147,4 +145,4 @@ def dict_get(request):
     for i in queryset:
         if i.status:
             json_data.append({"key": i.code, "label": i.name})
-    return JsonResponse(data=R.success(data=json_data), safe=False)
+    return R.success(data=json_data)

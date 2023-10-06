@@ -1,6 +1,8 @@
 # result.py
 import json
 
+from django.http import JsonResponse
+
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
 # @Author: Hui
@@ -27,7 +29,12 @@ class R(object):
             'rows': rows,
             'pageSize': page_size,
         }
-        return R.success(data=result)
+        table_result = {
+            'code': StatusCodeEnum.OK.code,
+            'data': result,
+            'message': StatusCodeEnum.OK.errmsg,
+        }
+        return JsonResponse(data=table_result, safe=False)
 
     @staticmethod
     def success(code=StatusCodeEnum.OK.code, data=None, message=StatusCodeEnum.OK.errmsg):
@@ -36,7 +43,7 @@ class R(object):
             'data': data,
             'message': message,
         }
-        return result
+        return JsonResponse(data=result, safe=False)
 
     @staticmethod
     def ok(data=None):
@@ -48,7 +55,8 @@ class R(object):
         r.code = StatusCodeEnum.OK.code
         r.message = StatusCodeEnum.OK.errmsg
         r.data = data
-        return r.__dict__
+        return JsonResponse(data=r.__dict__, safe=False)
+
 
     @staticmethod
     def error(data=None):
@@ -60,7 +68,7 @@ class R(object):
         r.code = StatusCodeEnum.ERROR.code
         r.message = StatusCodeEnum.ERROR.errmsg
         r.data = data
-        return r
+        return JsonResponse(data=r.__dict__, safe=False)
 
     @staticmethod
     def server_error(message='服务器异常'):
@@ -71,7 +79,7 @@ class R(object):
         r = R()
         r.code = StatusCodeEnum.SERVER_ERR.code
         r.message = message
-        return r
+        return JsonResponse(data=r.__dict__, safe=False)
 
     @staticmethod
     def set_result(enum):
